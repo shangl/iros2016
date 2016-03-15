@@ -1,0 +1,38 @@
+[dmp]
+tau = 20.0
+az = 48.0
+bz = 11.75
+dmpStepSize = 0.014
+tolAbsErr = 0.1
+tolRelErr = 0.1
+ac = 0
+[pick]
+trajectory = $KUKADU_HOME/movements/book_pickup/left/kuka_lwr_real_left_arm_0
+[prep]
+transfinalpush = /home/c7031109/iis_robot_sw/iis_catkin_ws/src/hangl_2016_iros/experiment/movements/push_fin/kuka_lwr_real_left_arm_0
+transpushforward = /home/c7031109/iis_robot_sw/iis_catkin_ws/src/hangl_2016_iros/experiment/movements/push_forward/kuka_lwr_real_right_arm_0
+[control]
+usehands = 1
+simulation = 1
+hapticmode = 1
+[ps]
+useprojectivesimulation = 0
+loadps = 0
+numberofactions = 4
+numberofpercepts = 4
+gamma = 0.001
+stdreward = 10000
+boredom = 1.0
+psfile = $KUKADU_HOME/movements/icra2016/trainedps.txt
+punishreward = -30
+stdweight = 200
+sensestretch = 15
+[class]
+mmrpath = $KUKADU_HOME/scripts/trajectory_classifier
+mmrfile = trajlab_main
+mmrfunction = runClassifier
+database = /home/c7031109/iis_robot_sw/iis_catkin_ws/src/hangl_2016_iros/experiment/data_with_labels
+tmppath = $HOME/tmp/
+[hhm]
+storepspath=/home/c7031109/iis_robot_sw/iis_catkin_ws/src/hangl_2016_iros/experiment/ps
+storerewardhistorypath=/home/c7031109/iis_robot_sw/iis_catkin_ws/src/hangl_2016_iros/experiment/rewardhistory

@@ -1,0 +1,59 @@
+<launch>
+  # The planning and execution components of MoveIt! configured to
+  # publish the current configuration of the robot (simulated or real)
+  # and the current state of the world as seen by the planner
+  
+  # this argument controls wheather to choose configuration for simulated or real robot
+  # default value is 'simulation'
+  <arg name="simulation" default="true"/>
+  <arg name="gui" default="false"/>
+   
+  <arg unless="$(arg simulation)" name="controllers" value="right_arm left_arm joint_state_controller" />
+  <arg     if="$(arg simulation)" name="controllers" value="right_arm left_arm right_sdh left_sdh joint_state_controller" />
+  
+  <arg unless="$(arg simulation)" name="ns" value="real" />
+  <arg     if="$(arg simulation)" name="ns" value="simulation" />
+  
+  <include if="$(arg gui)" file="$(find iis_fast_ik)/launch/kinematics.launch" />
+  
+  <group ns="$(arg ns)">
+      
+      # Initialize the planning_context and upload robot description first!
+      <include file="$(find uibk_robot_moveit_config)/launch/planning_context.launch">
+	  <arg name="load_robot_description" value="true"/>
+      </include>
+  
+      # start an instance of our hardware_adapter
+      <node name="hardware_adapter" 
+	    pkg="uibk_moveit_adapter" 
+	    type="hardware_adapter" 
+	    output="screen">
+
+	  <!-- upload the adapter configuration to the parameter server -->
+	  <rosparam command="load" file="$(find uibk_robot_moveit_config)/config/adapter_config.yaml" />
+      </node>
+      
+      # Load controller configurations to the parameter server
+      <rosparam command="load" file="$(find uibk_moveit_adapter)/config/arm_controllers.yaml" />
+      <rosparam command="load" file="$(find uibk_moveit_adapter)/config/jointstates_controller.yaml" />
+      <rosparam command="load" file="$(find uibk_moveit_adapter)/config/gripper_controllers.yaml" />
+      
+      # launch the necessary controllers
+      <node name="controller_spawner" 
+	    pkg="controller_manager" 
+	    type="spawner"
+	    output="screen"
+	    args="$(arg controllers)" />
+
+      <include file="$(find uibk_robot_moveit_config)/launch/move_group.launch">
+	<arg name="publish_monitored_planning_scene" value="true" />
+      </include>
+      
+      # The visualization component of MoveIt!
+      <include file="$(find uibk_robot_moveit_config)/launch/moveit_rviz.launch">
+	<arg name="config" value="true"/>
+      </include>
+      
+  </group>
+  
+</launch>

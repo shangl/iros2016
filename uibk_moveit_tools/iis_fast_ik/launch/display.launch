@@ -1,0 +1,13 @@
+<launch>
+	<arg name="file_name" default="iis_robot_table.xacro" />
+	
+	<param name="robot_description" command="$(find xacro)/xacro.py $(find iis_fast_ik)/config/$(arg file_name)"/>
+	<param name="robot_description_semantic" textfile="$(find iis_fast_ik)/config/iis_robot.srdf"/>
+	
+	<include file="$(find iis_fast_ik)/launch/kinematics.launch"/>
+	
+	<!--node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /-->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find iis_fast_ik)/config/urdf.rviz" />
+	
+</launch>

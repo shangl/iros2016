@@ -1,0 +1,107 @@
+planner_configs:
+  SBLkConfigDefault:
+    type: geometric::SBL
+  ESTkConfigDefault:
+    type: geometric::EST
+  LBKPIECEkConfigDefault:
+    type: geometric::LBKPIECE
+  BKPIECEkConfigDefault:
+    type: geometric::BKPIECE
+  KPIECEkConfigDefault:
+    type: geometric::KPIECE
+  RRTkConfigDefault:
+    type: geometric::RRT
+  RRTConnectkConfigDefault:
+    type: geometric::RRTConnect
+  RRTstarkConfigDefault:
+    type: geometric::RRTstar
+  TRRTkConfigDefault:
+    type: geometric::TRRT
+  PRMkConfigDefault:
+    type: geometric::PRM
+  PRMstarkConfigDefault:
+    type: geometric::PRMstar
+left_arm:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+  projection_evaluator: joints(left_arm_0_joint,left_arm_1_joint)
+  longest_valid_segment_fraction: 0.05
+right_arm:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+  projection_evaluator: joints(right_arm_0_joint,right_arm_1_joint)
+  longest_valid_segment_fraction: 0.05
+left_sdh:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+right_sdh:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+both_arms:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault
+  projection_evaluator: joints(left_arm_0_joint,left_arm_1_joint)
+  longest_valid_segment_fraction: 0.05
+kit_head:
+  planner_configs:
+    - SBLkConfigDefault
+    - ESTkConfigDefault
+    - LBKPIECEkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
+    - RRTkConfigDefault
+    - RRTConnectkConfigDefault
+    - RRTstarkConfigDefault
+    - TRRTkConfigDefault
+    - PRMkConfigDefault
+    - PRMstarkConfigDefault

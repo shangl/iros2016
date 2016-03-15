@@ -1,0 +1,129 @@
+iis_fast_ik
+===============
+
+This package contains a library class called uibk_kinematics::Kinematics. This class can be used to easily compute
+FK and IK solutions for our robot. The package depends on the URDF model of the robot setup. The URDF description is 
+located in the file 'iis_fast_ik/config/iis_robot_table.xacro' which also depends on the packages from the iis_hardware stack!
+
+Installation
+============
+
+Just copy this package into your catkin workspace and compile it.
+
+Visualizing the robot model
+===========================
+You can use 
+
+  roslaunch iis_fast_ik display.launch
+  
+for visualizing the URDF model, contained in the 'iis_robot_table.xacro' file. This will bring up RViz and display the model.
+This is especially useful if you want to change the model and check the modifications.
+
+Run the test
+============
+
+IMPORTANT: Make sure that the uibk_robot_table.xacro (URDF description) and the kinematics.yaml are uploaded to the parameter server
+before running any programm using this class, otherwise it will fail!
+You can do that with 
+
+  roslaunch iis_fast_ik kinematics.launch
+  
+To run the test file you can use
+  
+  rosrun iis_fast_ik kinematics_test
+  
+Usage
+========
+
+Just instantiate an object of type uibk_kinematics::Kinematics...
+
+  uibk_kinematics::Kinematics kin;
+  
+... and use it's functions.
+
+  bool success = kin.computeIK(ARM, GOAL, SOLUTION_VECTOR);
+  
+  where ARM can be either 'left' or 'right'
+	GOAL is a geometry_msgs::Pose
+	SOLUTION_VECTOR is a vector<double> that holds the solution in case of success
+	
+  It is also possible to provide a seed state:
+  
+  bool success = kin.computeIK(ARM, GOAL, SEED, SOLUTION);
+  
+  where SEED is a vector<double>, holidng exactly as many entries as there are arm joints
+  
+... or
+  
+  bool success = kin.computeFK(ARM, JOINT_POSITIONS, SOLUTION);
+
+  where ARM is either 'left' or 'right'
+	JOINT_POSITIONS is a vector<double>, holding the jointpositions
+	SOLUTION is a geometry_msgs::Pose that will be filled with the solution in case of success
+  
+Look into kinematics_test.cpp to see the class in action.
+
+UPDATE:
+=======
+
+The kinematics class now allows to specify the name of the link that IK calculation is done for. The default link is 
+the last link within the arm chain. Alternatively one of the links of the gripper could be used:
+
+  bool success = kin.computeIK(ARM, GOAL, TIP_LINK, SOLUTION_VECTOR);
+  
+  where ARM 		can be either 'left' or 'right'
+	GOAL 		is a geometry_msgs::Pose
+	TIP_LINK	the name of the tip link (e.g. right_sdh_grasp_link, right_sdh_tip_link, left_sdh...)
+	SOLUTION_VECTOR is a vector<double> that holds the solution in case of success
+	
+  It is also possible to provide a seed state:
+  
+  bool success = kin.computeIK(ARM, GOAL, TIP_LINK, SEED, SOLUTION);
+  
+  where SEED is a vector<double>, holidng exactly as many entries as there are arm joints
+
+Look into ik_tests_with_visualization.cpp to see the new functionality in action. To visualize the outcome you can use the 
+'kinematics.launch' with the 'gui' parameter set to true.
+
+  roslaunch iis_fast_ik kinematics.launch gui:=true
+  
+This also launches a configured instance of RViz.  
+To run the test file you can use
+  
+  rosrun iis_fast_ik ik_tests_with_visualization
+  
+In RViz you should then see a little green sphere, indicating the IK target position.
+The robot model will display the three target positions.
+Firs one uses default tip link as target, second one 'right_sdh_grasp_link', third one 'right_sdh_tip_link'.
+
+
+How to change size of table and table surface within URDF description:
+=====================================================================
+
+  - open the model file 'config/iis_robot_table.xacro'
+    with your favourite text editor.
+    
+  - locate the tag <xacro:model_table> and adjust the parameters
+    The table is drawn relative to the world reference frame. The origin of the table is located at
+    the top left corner.
+    Parameters are:
+      length:          table size in y direction
+      width:           table size in x direction
+      origin:          adjust the placement of the table, relative to the world (beginning at the top left table corner)
+
+  - locate the tag <xacro:model_surface_table> and adjust the parameters
+    The table is drawn relative to the world reference frame. The origin of the table is located at
+    the top left corner.
+    Parameters are:
+      length:          mate size in y direction
+      width:           mate size in x direction
+      thickness:       mate size in z direction
+      origin:          adjust the placement of the surface mate, relative to the table plate (beginning at the top left corner)
+      
+  - save modifications and visualize the model using
+  
+      roslaunch iis_fast_ik display.launch
+  
+  NOTE: Please do not remove any components of the model completely as that would require
+	to modify the 'config/iis_robot.srdf' as well!!!
+  

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>hangl_2016_iros</name>
+  <version>0.0.0</version>
+  <description>The hangl-2016-iros package</description>
+
+  <maintainer email="simon.hangl@uibk.ac.at">simon hangl</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>kukadu</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>iis_fast_ik</build_depend>
+  <build_depend>iis_robot_dep</build_depend>
+  <build_depend>hangl_pushing_rect</build_depend>
+  <run_depend>kukadu</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>iis_fast_ik</run_depend>
+  <run_depend>iis_robot_dep</run_depend>
+  <run_depend>hangl_pushing_rect</run_depend>
+
+  <export>
+
+  </export>
+</package>

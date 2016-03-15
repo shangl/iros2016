@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: iis_robot
+    relative_path: urdf/iis_robot_table.xacro
+  SRDF:
+    relative_path: config/iis_robot.srdf
+  CONFIG:
+    generated_timestamp: 1391616187

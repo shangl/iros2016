@@ -1,0 +1,13 @@
+<launch>
+
+  <arg name="file_name" default="iis_robot_table.xacro" />
+  <arg name="gui" default="false" />
+  
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find uibk_robot_moveit_config)/config/$(arg file_name)"/>
+  <param name="robot_description_semantic" textfile="$(find uibk_robot_moveit_config)/config/iis_robot.srdf"/>
+  
+  <rosparam command="load" file="$(find uibk_robot_moveit_config)/config/kinematics.yaml" />
+  
+  <include if="$(arg gui)" file="$(find iis_fast_ik)/launch/display.launch" />
+  
+</launch>

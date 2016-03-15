@@ -1,0 +1,18 @@
+Dependencies:
+gcc 4.8
+
+Usage on leo3:
+
+copy files to leo3:
+scp -r projective_simulation c7031109@login.leo3.uibk.ac.at:~/
+
+login to leo3:
+ssh -l c7031109 login.leo3.uibk.ac.at
+
+compile projective simulation:
+module load gcc/5.1.0
+cd projective_simulation/
+mkdir bin
+cd bin
+cmake ../
+make
